@@ -30,3 +30,4 @@ int main()
 	puts(cards);
 	return 0;
 }
+

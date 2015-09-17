@@ -1,0 +1,7 @@
+Stack.c: During foo, an array of size 5 is made and then each index of the array gets replace with 17. During bar, "array" gets passed back in and gets replaced by the index number. Lastly, each value of the index gets printed.
+
+When compiled, I get a warning saying that address of stack memory associated with local variable "array" returned [-Wreturn-stack-address]. This means that memory that was reserved for the local variable "array" will be deallocated once the execution goes out of the function. The pointer becomes invalid then.
+
+When I run it, I get two addresses, and then "0, 1, 2, 3, 4". This happens, because array was only stored as a string literal and got defined as a constant, which does not get to be changed.
+
+When I comment out the print statements in foo() and bar() and run it again. It returns "0, 0, -1735463296, 32544, -1735375520", because 
