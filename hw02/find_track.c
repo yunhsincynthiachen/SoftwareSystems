@@ -42,8 +42,13 @@ int find_track_regex(char pattern[])
     // TODO: fill this in
     int i;
     regex_t re;
-    if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
-        return(0);      /* Report error. */
+    char buffer[100];
+    int rc = regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB);
+
+    if (rc != 0) {
+        regerror(rc, &re, buffer, 100);
+        printf("regcomp() failed with '%s'\n", buffer);
+        exit(EXIT_FAILURE);
     }
     for (i=0; i<NUM_TRACKS; i++){
         int status = regexec(&re, tracks[i], (size_t) 0, NULL, 0);
