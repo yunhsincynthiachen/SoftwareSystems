@@ -9,15 +9,15 @@ int cases(char *card_name, int val){
 		case 'K':
 		case 'Q':
 		case 'J':
-			val = 10;
+			val = 10; //for all of the above cases, the value will be set to 10
 			break;
 		case 'A':
-			val = 11;
+			val = 11; //if card is A, the value will be set to 11
 			break;
 		case 'X':
-			break;
+			break; //breaks if caed is X
 		default:
-			val = atoi(card_name);
+			val = atoi(card_name); 
 			if ((val<1) || (val>10)) {
 				puts("I don't understand that value!");
 				break;
@@ -45,8 +45,8 @@ int main()
 		int val = 0;
 		puts("Enter the card_name: ");
 		scanf("%2s", card_name);
-		val = cases(card_name, val);
-		count = counter(val, count);
+		val = cases(card_name, val); //gets the value of the card from the function cases
+		count = counter(val, count); //the counter function will return a lower or higher count, depending on the value of card
 		printf("Current count: %i\n", count);
 	}
 	return 0;

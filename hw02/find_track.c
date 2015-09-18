@@ -40,20 +40,21 @@ void find_track(char search_for[])
 int find_track_regex(char pattern[])
 {
     // TODO: fill this in
-    int i;
-    regex_t re;
-    char buffer[100];
-    int rc = regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB);
+    int i; //sets i as an integer
+    regex_t re; //regular expression is defined
+    char buffer[100]; //regex has bugger
+    int rc = regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB); //compiles the regular expression
 
     if (rc != 0) {
-        regerror(rc, &re, buffer, 100);
+        regerror(rc, &re, buffer, 100); //regerror set
         printf("regcomp() failed with '%s'\n", buffer);
         exit(EXIT_FAILURE);
     }
     for (i=0; i<NUM_TRACKS; i++){
+        //for each track, regexec checks to see if it follows the pattern
         int status = regexec(&re, tracks[i], (size_t) 0, NULL, 0);
         if (status == 0) {
-            printf("Track %i: '%s'\n", i, tracks[i]);
+            printf("Track %i: '%s'\n", i, tracks[i]); //will print the track if it has a status equals 0
         }
     }
     regfree(&re);
