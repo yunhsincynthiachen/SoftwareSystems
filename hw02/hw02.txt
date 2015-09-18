@@ -4,4 +4,4 @@ When compiled, I get a warning saying that address of stack memory associated wi
 
 When I run it, I get two addresses, and then "0, 1, 2, 3, 4". This happens, because array was only stored as a string literal and got defined as a constant, which does not get to be changed.
 
-When I comment out the print statements in foo() and bar() and run it again. It returns "0, 0, -1735463296, 32544, -1735375520", because 
+When I comment out the print statements in foo() and bar() and run it again. It returns "0, 0, -1735463296, 32544, -1735375520".
