@@ -4,17 +4,6 @@
 
 #define MAX 80
 
-void writing_to_file(char words[80], char *fp) {
-
-	FILE *filename;
-
-	filename = fopen(fp, "a");
-
-	fprintf(filename, "%s\n", words);
-
-	fclose(filename);
-}
-
 
 int main (int argc, char *argv[])
 {
@@ -24,7 +13,7 @@ int main (int argc, char *argv[])
 	char ch;
 	char *write_type;
 	char word[MAX]= "";
-	char *fp;
+	FILE *filename;
 
 	while ((ch = getopt(argc, argv, "a:w:")) != EOF) {
 		switch(ch){
@@ -43,20 +32,18 @@ int main (int argc, char *argv[])
 		}
 	}
 
-	FILE *filename;
-
-	filename = fopen(argv[2], write_type);
-
-	fp = argv[2];
-
-	printf("%s\n", fp);
 
 	while (scanf("%[^\n]%*c", word) == 1){
 
-		writing_to_file(word, fp);
-		printf("%s\n", word);
-	}
+		filename = fopen(argv[2], write_type);
 
+		fprintf(filename, "%s\n", word);
+
+		printf("%s\n", word);
+
+		fclose(filename);
+	}
+	
 
     return 0;
 }
