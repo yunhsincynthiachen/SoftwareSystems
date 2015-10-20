@@ -1,0 +1,3 @@
+1. Between all of the different implementations, the order of speed are as follows: dummy, dummy2, theirs (random_float), mine (my_random_float)
+
+2. With my_random_float2 added, my_random_float is twice as fast as my_random_float

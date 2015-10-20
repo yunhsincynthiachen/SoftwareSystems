@@ -19,6 +19,17 @@
 
 // generate a random float using the algorithm described
 // at allendowney.com/research/rand
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/resource.h>
+#include <sys/time.h>
+#include <sys/times.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <inttypes.h>
+
 float my_random_float()
 {
   int x, exp, mant;
@@ -86,11 +97,44 @@ float my_random_float2()
   return b.f;
 }
 
-// compute a random double using my algorithm
+//compute a random double using my algorithm
 double my_random_double()
 {
-  // TODO: fill this in
+  // Change all of the int's to floats
+  uint64_t x;
+  uint64_t mant;
+  uint64_t exp = 1022;
+  uint64_t mask = 1;
+
+  union {
+    double d;
+    uint64_t i;
+  }b;
+
+  //generate random bits until we see the first set bit
+  while (1) {
+    x = (random() << 32) | random();
+    if (x == 0) {
+      exp -= 63;
+    } else {
+      break;
+    }
+  }
+
+  // find the location of the first set bit and compute the exponent
+  while (x & mask) {
+    mask <<= 1;
+    exp--;
+  }
+
+  // use the remaining bit as the mantissa
+  mant = x >> 11;
+  b.i = (exp << 52) | mant;
+
+  return b.d;
+
 }
+
 
 // return a constant (this is a dummy function for time trials)
 float dummy()
@@ -137,4 +181,8 @@ float random_double()
   return f;
 }
 
-
+int main (int argc, char *argv[]) {
+  double f;
+  f = my_random_float2();
+  printf("%f\n", f);
+}
