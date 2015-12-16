@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <glib.h>
 
+//Working with glib to print out just hello world
 int main(int argc, char** argv) {
      GList* list = NULL;
      list = g_list_append(list, "Hello Glib!");

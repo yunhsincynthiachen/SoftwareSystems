@@ -3,31 +3,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-// static void print_data (gchar *key, gchar *value)
-// {
-// 	printf ("%s:%s\n", key, value);
-// }
 
 int main(int argc, char** argv) {
 	gchar *text;
 	GError *err = NULL;
 
+	//Initialize new ghashtable with string key and value
 	GHashTable* hash = g_hash_table_new(g_str_hash, g_str_equal);
-	// g_hash_table_insert(hash, "Texas", "Austin");
 
+	//Get the alice in wonderland text
 	g_file_get_contents ("alicewonderland.txt", &text, NULL, &err);
 
+	//split all of the words in the file into individual gchars
 	gchar **words;
 
 	words = g_strsplit(text, " ", 0);
 
 	for (int i=0; i<27000; i++) {
 
-		// gchar *value;
-	 //    value = g_hash_table_lookup(hash, words[i]);
-
+		//lookup the hashtable for whether or not the word is already in the hashtable
 		gint *val = (gint *) g_hash_table_lookup (hash, words[i]);
 
+		//if value is null, put it into the hashtable, else increment value
 		if (val == NULL){ 
 			gint *val1 = g_new (gint, 1);
 			*val1 = 1;
@@ -35,11 +32,11 @@ int main(int argc, char** argv) {
 		}
 		else { 
 			*val += 1;
-			// printf("%i. %s, %i\n", i, words[i], *val);
 		}
 
 	}
 
+	//Print out everything in the hashtable
 	GList *newhashkeys;
 	newhashkeys = g_hash_table_get_keys(hash);	
 	for (int j = 0; j < g_list_length(newhashkeys); j++){ 
